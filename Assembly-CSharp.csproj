@@ -66,6 +66,8 @@
   <ItemGroup>
     <Compile Include="Assets\Gravity_Logic.cs" />
     <Compile Include="Assets\Player_Logic.cs" />
+    <Compile Include="Assets\TopDownView.cs" />
+    <Compile Include="Assets\Tuibitest.cs" />
     <Reference Include="UnityEngine.Purchasing">
       <HintPath>C:/Users/butte/GaraxTest/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
     </Reference>

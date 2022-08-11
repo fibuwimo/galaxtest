@@ -40,8 +40,12 @@ public class Player_Logic : MonoBehaviour
         Horizontal_Rotate();
 
         Vector3 move_direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
-
+/*
         Rig.MovePosition(Rig.position + transform.TransformDirection(move_direction) * move_speed * Time.deltaTime);
+        */
+        if(Rig.velocity.magnitude<17){
+        Rig.AddForce(transform.TransformDirection(move_direction)*30);
+        }
     }
 
     void Jump()

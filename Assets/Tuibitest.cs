@@ -25,5 +25,7 @@ public class Tuibitest : MonoBehaviour
         preVec = target.transform.position - planet.transform.position;
         transform.position += -transform.up * 20f;
 
+        
+        
     }
 }

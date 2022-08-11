@@ -24,6 +24,9 @@ public class Player_Logic : MonoBehaviour
     //ジャンプ力
     public float Jumppower;
 
+    public Transform lookTargetN;
+    public Transform lookTargetS;
+    public bool isNorth = true;
 
     void Start()
     {
@@ -32,20 +35,42 @@ public class Player_Logic : MonoBehaviour
 
     void Update()
     {
-        Jump();
+        
     }
 
     private void FixedUpdate()
     {
         Horizontal_Rotate();
+        Jump();
 
         Vector3 move_direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
-/*
+
         Rig.MovePosition(Rig.position + transform.TransformDirection(move_direction) * move_speed * Time.deltaTime);
+
+        /*
+                if(Rig.velocity.magnitude<17){
+                Rig.AddForce(transform.TransformDirection(move_direction)*30);
+
+                }
         */
-        if(Rig.velocity.magnitude<17){
-        Rig.AddForce(transform.TransformDirection(move_direction)*30);
+
+        if (isNorth == true)
+        {
+            var direction = lookTargetN.transform.position - transform.position;
+            direction.y = 0;
+            var lookRotation = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 1f);
         }
+        
+        else
+        {
+            var direction = lookTargetS.transform.position - transform.position;
+            direction.y = 0;
+            var lookRotation = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 1f);
+        }
+        
+        
     }
 
     void Jump()
@@ -65,6 +90,19 @@ public class Player_Logic : MonoBehaviour
         if (other.gameObject.tag == "Planet")//  もしPlanetというタグがついたオブジェクトに触れたら、
         {
             Grounded = true;//  Groundedをtrueにする
+        }
+        
+        
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "North")//  もしPlanetというタグがついたオブジェクトに触れたら、
+        {
+            isNorth = false;//  Groundedをtrueにする
+        }
+        if (other.gameObject.tag == "South")//  もしPlanetというタグがついたオブジェクトに触れたら、
+        {
+            isNorth = true;//  Groundedをtrueにする
         }
     }
 
